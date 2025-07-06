@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Employee Mangaement System</title>
+    <title>Employee Management System</title>
 
     <link
             rel="stylesheet"
@@ -10,52 +10,55 @@
             integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
             crossorigin="anonymous"
     />
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to right, #e0f7fa, #ffffff);
+            min-height: 50vh;
+            padding-top: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+        }
+
+        h1 {
+            font-weight: 600;
+            color: #708090;
+            font-size: 2rem;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+            border: none;
+            border-radius: 16px;
+        }
+
+        .table {
+            font-size: 0.95rem; /* Reduced text size */
+        }
+
+        .table thead {
+            background-color: #18A8BC;
+            color: white !important;
+            font-size: 1rem;
+        }
+
+        .table th,
+        .table td {
+            padding: 10px 16px; /* Reduced spacing */
+        }
+
+        .btn {
+            font-size: 0.9rem;
+            padding: 6px 12px;
+        }
+    </style>
 
 </head>
+
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-
-<style>
-    body {
-        font-family: 'Poppins', sans-serif;
-        background: linear-gradient(to right, #e0f7fa, #ffffff);
-        min-height: 100vh;
-        padding-top: 60px;
-    }
-
-    .container {
-        max-width: 1200px; /* Increased width */
-    }
-
-    h1 {
-        font-weight: 600;
-        color: #708090	;
-        font-size: 2.5rem;
-        margin-bottom: 30px;
-    }
-
-    .card {
-        box-shadow: 0 8px 24px rgba(0,0,0,0.1);
-        border: none;
-        border-radius: 16px;
-    }
-
-    .table {
-        font-size: 1.2rem; /* Increase text size */
-    }
-
-    .table thead {
-    background-color: #18A8BC;
-        color: white !important;
-        font-size: 1.3rem;
-    }
-
-    .table th, .table td {
-        padding: 18px 24px; /* More spacing */
-    }
-</style>
-
-
-
 <body>
 <div class="container mt-5">
     <h1 class="text-center mb-4" >Employee Mangaement System</h1>
@@ -63,20 +66,20 @@
     <table class="table table-bordered table-striped ">
         <thead class="table-info">
         <tr>
-            <th>Employee Id</th>
             <th>Employee First Name</th>
             <th>Employee Last Name</th>
             <th>Employee Email</th>
+            <th>Actions</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="employee : ${listEmployees}">
-            <td th:text="${employee.id}"></td>
             <td th:text="${employee.firstName}"></td>
             <td th:text="${employee.LastName}"></td> <!-- Issue: should be lowercase -->
             <td th:text="${employee.email}"></td>
+            <td><a th:href = "@{/EmployeeUpdate/{id}(id=${employee.id})}" class="btn btn-primary btn-lg mb-3 text-white">Update</a>
+                <a th:href = "@{/EmployeeDelete/{id}(id=${employee.id})}" class="btn btn-danger btn-lg mb-3 text-white">Delete</a></td>
         </tr>
-
         </tbody>
     </table>
 </div>
