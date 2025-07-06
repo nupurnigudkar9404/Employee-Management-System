@@ -44,13 +44,9 @@
     }
 
     .table thead {
-        background-color: #1976d2 !important;
+    background-color: #18A8BC;
         color: white !important;
         font-size: 1.3rem;
-    }
-
-    .table tbody tr:hover {
-        background-color: #e3f2fd;
     }
 
     .table th, .table td {
@@ -63,9 +59,9 @@
 <body>
 <div class="container mt-5">
     <h1 class="text-center mb-4" >Employee Mangaement System</h1>
-    <a th:href = "@{/showNewEmployeeForm}" class="btn btn-primary btn-lg mb-3 text-white">Add Employee</a>
-    <table class="table table-bordered table-striped table-hover">
-        <thead class="table-primary">
+    <a th:href = "@{/showNewEmployeeForm}" class="btn btn-info btn-lg mb-3 text-white">Add Employee</a>
+    <table class="table table-bordered table-striped ">
+        <thead class="table-info">
         <tr>
             <th>Employee Id</th>
             <th>Employee First Name</th>
