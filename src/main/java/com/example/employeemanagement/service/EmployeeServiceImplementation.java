@@ -3,6 +3,9 @@ package com.example.employeemanagement.service;
 import com.example.employeemanagement.model.Employee;
 import com.example.employeemanagement.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -40,5 +43,11 @@ public class EmployeeServiceImplementation implements EmployeeService{
     @Override
     public void deleteEmployeeById(long id) {
         this.employeeRepository.deleteById(id);
+    }
+
+    @Override
+    public Page<Employee> findPaginated(int pageNo, int pageSize) {
+        Pageable pageable = PageRequest.of(pageNo-1,pageSize);
+        return this.employeeRepository.findAll(pageable);
     }
 }

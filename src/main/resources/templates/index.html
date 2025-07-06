@@ -10,6 +10,8 @@
             integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
             crossorigin="anonymous"
     />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
     <style>
         body {
             font-family: 'Poppins', sans-serif;
@@ -19,7 +21,7 @@
         }
 
         .container {
-            max-width: 1000px;
+            max-width: 1250px;
         }
 
         h1 {
@@ -36,7 +38,7 @@
         }
 
         .table {
-            font-size: 0.95rem; /* Reduced text size */
+            font-size: 0.95rem;
         }
 
         .table thead {
@@ -45,9 +47,8 @@
             font-size: 1rem;
         }
 
-        .table th,
-        .table td {
-            padding: 10px 16px; /* Reduced spacing */
+        .table th, .table td {
+            padding: 10px 16px;
         }
 
         .btn {
@@ -55,17 +56,17 @@
             padding: 6px 12px;
         }
     </style>
-
 </head>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 <body>
 <div class="container mt-5">
-    <h1 class="text-center mb-4" >Employee Mangaement System</h1>
-    <a th:href = "@{/showNewEmployeeForm}" class="btn btn-info btn-lg mb-3 text-white">Add Employee</a>
-    <table class="table table-bordered table-striped ">
+    <h1 class="text-center mb-4">Employee Management System</h1>
+    <a th:href="@{/showNewEmployeeForm}" class="btn btn-info btn-lg mb-3 text-white">Add Employee</a>
+
+    <table class="table table-bordered table-striped">
         <thead class="table-info">
         <tr>
+            <th>Employee Id</th>
             <th>Employee First Name</th>
             <th>Employee Last Name</th>
             <th>Employee Email</th>
@@ -74,14 +75,44 @@
         </thead>
         <tbody>
         <tr th:each="employee : ${listEmployees}">
+            <td th:text="${employee.id}"></td>
             <td th:text="${employee.firstName}"></td>
-            <td th:text="${employee.LastName}"></td> <!-- Issue: should be lowercase -->
+            <td th:text="${employee.lastName}"></td> <!-- corrected lowercase 'lastName' -->
             <td th:text="${employee.email}"></td>
-            <td><a th:href = "@{/EmployeeUpdate/{id}(id=${employee.id})}" class="btn btn-primary btn-lg mb-3 text-white">Update</a>
-                <a th:href = "@{/EmployeeDelete/{id}(id=${employee.id})}" class="btn btn-danger btn-lg mb-3 text-white">Delete</a></td>
+            <td>
+                <a th:href="@{/EmployeeUpdate/{id}(id=${employee.id})}" class="btn btn-primary btn-lg mb-3 text-white">Update</a>
+                <a th:href="@{/EmployeeDelete/{id}(id=${employee.id})}" class="btn btn-danger btn-lg mb-3 text-white">Delete</a>
+            </td>
         </tr>
         </tbody>
     </table>
+
+    <!-- Pagination Section -->
+    <div th:if="${totalPages > 1}">
+        <div class="row col-sm-12 align-items-center">
+            <div class="col-sm-2">
+                Total Rows: [[${totalItems}]]
+            </div>
+
+            <div class="col-sm-6">
+                <span th:each="i : ${#numbers.sequence(1, totalPages)}">
+                    <a th:if="${currentPage != i}" th:href="@{'/page/' + ${i}}">[[${i}]]</a>
+                    <span th:unless="${currentPage != i}">[[${i}]]</span>
+                    &nbsp;&nbsp;
+                </span>
+            </div>
+
+            <div class="col-sm-2">
+                <a th:if="${currentPage < totalPages}" th:href="@{'/page/' + ${currentPage + 1}}">Next</a>
+                <span th:unless="${currentPage < totalPages}">Next</span>
+            </div>
+
+            <div class="col-sm-2">
+                <a th:if="${currentPage < totalPages}" th:href="@{'/page/' + ${totalPages}}">Last</a>
+                <span th:unless="${currentPage < totalPages}">Last</span>
+            </div>
+        </div>
+    </div>
 </div>
 </body>
 </html>
